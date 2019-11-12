@@ -5,9 +5,16 @@
 $(document).ready(function () {
     var id;
     var userId = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+    var login;
     // var userId = 1;
     var donatorCardId;
     checkNumberOfItems();
+
+    // Logging In
+    $("#login").on("click", function (event) {
+        console.log("Inside login button");
+        login = true;
+    });
 
     // Grab all values entered by user when submit button is clicked
     $("#submit-btn").on("click", function (event) {
@@ -169,13 +176,12 @@ $(document).ready(function () {
 
     function getUserEmail(startDate, endDate, category, item, noOfItems, location, image) {
 
-        $.get("/api/" + userId, function () {
-        }).then(function (result) {
-            console.log("result.email: " + result.email)
-            var useremail = result.email
-            populateDonatorCards(startDate, endDate, category, item, noOfItems, location, image, useremail);
-        })
-
+            $.get("/api/" + userId, function () {
+            }).then(function (result) {
+                console.log("result.email: " + result.email)
+                var useremail = result.email
+                populateDonatorCards(startDate, endDate, category, item, noOfItems, location, image, useremail);
+            })
     }
 
     // Function that populates values to Donator Cards

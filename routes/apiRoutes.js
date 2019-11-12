@@ -2,12 +2,26 @@ const router = require("express").Router();
 var db = require("../models");
 const mongoDb = require("../mongodb_models");
 var path = require("path");
-const cardsController = require("../controllers/cardsController");
+var login;
+// const cardsController = require("../controllers/cardsController");
+// var login = require("assets/js/app3.js");
 
 module.exports = function (app) {
 
     app.get("/form", function (req, res) {
         res.sendFile(path.join(__dirname + "/../public/assets/form.html"));
+    })
+
+    app.get("/logout", function(req, res){
+        login = false;
+        console.log(login);
+        res.json(login);
+    })
+
+    app.get("/login", function(req, res){
+        login = true;
+        console.log(login);
+        res.json(login);
     })
 
     // To retrive all donator and requestor cards from database
@@ -38,7 +52,13 @@ module.exports = function (app) {
                     // console.log(donatorCard.result);
                     console.log("MERGING RESULT OBJECTS");
                     console.log(resultObj);
+
+                    if(login){
                     res.render("index", resultObj);
+                    }
+                    else{
+                        console.log("Please Login First");
+                    }
                 })
             })
         });
