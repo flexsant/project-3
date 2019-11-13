@@ -1,19 +1,11 @@
 // on click func for logging in
 $(document).ready(function () {
-    var login;
 
     $("#login").on("click", function (event) {
-        login = true;
         event.preventDefault();
         var username = $("#username").val().trim();
         var password = $("#password").val().trim();
         console.log("Inside login button");
-        // login = false;
-        $.ajax("/login", {
-            type: "GET"
-        }).then(function(result){
-            console.log(login);
-        })
         getUser(username, password)
     })
 
@@ -22,6 +14,14 @@ $(document).ready(function () {
             console.log(data)
             uniqueUserId = data.id;
             window.location = "/" + uniqueUserId;
+            
+        }).then(function(){
+
+            $.ajax("/login/" + uniqueUserId, {
+                type: "GET"
+            }).then(function(result){
+                console.log(login);
+            })
         })
     }
 
