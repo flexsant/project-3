@@ -2,7 +2,10 @@ const router = require("express").Router();
 var db = require("../models");
 const mongoDb = require("../mongodb_models");
 var path = require("path");
-const cardsController = require("../controllers/cardsController");
+var login;
+var uniqueUserId;
+// const cardsController = require("../controllers/cardsController");
+// var login = require("assets/js/app3.js");
 
 module.exports = function (app) {
 
@@ -10,8 +13,24 @@ module.exports = function (app) {
         res.sendFile(path.join(__dirname + "/../public/assets/form.html"));
     })
 
+    app.get("/logout", function (req, res) {
+        login = false;
+        console.log(login);
+        res.json(login);
+    })
+
+    app.get("/login/:uniqueUserId", function (req, res) {
+        login = true;
+        uniqueUserId = req.params.uniqueUserId;
+        console.log(login);
+        res.json(login);
+    })
+
     // To retrive all donator and requestor cards from database
     app.get("/:id", function (req, res) {
+        console.log("Inside user login");
+        console.log("ID");
+        console.log(req.params.id);
 
         db.RequestorCard.findAll({
             where: {
@@ -38,7 +57,14 @@ module.exports = function (app) {
                     // console.log(donatorCard.result);
                     console.log("MERGING RESULT OBJECTS");
                     console.log(resultObj);
-                    res.render("index", resultObj);
+
+                    if (login && req.params.id === uniqueUserId) {
+                        console.log(uniqueUserId);
+                        res.render("index", resultObj);
+                    }
+                    else {
+                        console.log("Please Login First");
+                    }
                 })
             })
         });
@@ -80,8 +106,8 @@ module.exports = function (app) {
         db.RequestorCard.findAll({
         }).then(function (result) {
             console.log("FIND ALL QUERY RESULT");
-            console.log(result);
-            console.log(result.numberneeded);
+            // console.log(result);
+            // console.log(result.numberneeded);
             res.send(result);
         })
 
@@ -159,8 +185,8 @@ module.exports = function (app) {
         db.DonatorCard.findAll({
         }).then(function (result) {
             console.log("FIND ALL QUERY RESULT");
-            console.log(result);
-            console.log(result.itemnumber);
+            // console.log(result);
+            // console.log(result.itemnumber);
             res.send(result);
         })
 

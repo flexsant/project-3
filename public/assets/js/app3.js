@@ -5,6 +5,7 @@ $(document).ready(function () {
         event.preventDefault();
         var username = $("#username").val().trim();
         var password = $("#password").val().trim();
+        console.log("Inside login button");
         getUser(username, password)
     })
 
@@ -14,6 +15,14 @@ $(document).ready(function () {
             console.log(data)
             uniqueUserId = data.id;
             window.location = "/" + uniqueUserId;
+            
+        }).then(function(){
+
+            $.ajax("/login/" + uniqueUserId, {
+                type: "GET"
+            }).then(function(result){
+                console.log(login);
+            })
         })
     }
 
@@ -29,9 +38,23 @@ $(document).ready(function () {
         })
     })
 
+    // Logging out
+    $("#logout").on("click", function () {
+        console.log("Inside logout button");
+        // login = false;
+        $.ajax("/logout", {
+            type: "GET"
+        }).then(function(result){
+            console.log(login);
+        })
+        
+    })
+
     function createNewUser(userData) {
         $.post("/api/new/user", userData)
             .then(console.log(userData))
     }
-
 })
+
+
+

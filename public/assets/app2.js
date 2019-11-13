@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     var userid = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+    var login = true;
     // var userid = 1;
     // var uniqueCardId;
     checkNumberOfItems();
