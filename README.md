@@ -32,7 +32,7 @@ Part 2: React App Using MongoDB
 ## Application Functioning
 User has to login first to view all details. Then user can either make a donation or can make request for donation. User can also view all donations made to their particular donation request by clicking on view notification button. A part of application functioning is shown below
 
-![Site](gif/DonationStation1.gif)
+![Site](DonationStation1.gif)
 
 ## Code Snippet
 *View all requests/donation cards*
@@ -155,5 +155,11 @@ class Cards extends Component {
 > React app is populated with all donations that are made by users. The above code retrieves data from donation table and sets state so that it is available for other users to view
 
 ## Author Links
+@Lex
+
+
+@Jordan
+
+@Mahisha
 [LinkedIn](https://www.linkedin.com/in/mahisha-gunasekaran-0a780a88/)
 [GitHub](https://github.com/Mahi-Mani)
